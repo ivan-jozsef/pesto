@@ -16,18 +16,23 @@ class PestosController extends Controller
     public function index()
     {
         $pestos = DB::table('pestos')->get();
-        return view('pesto.index', compact('pestos'));
+        $photos = DB::table('photos')->get();
+
+        return view('pesto.index', compact('pestos', 'photos'));
     }
 
     public function view($id) {
-        $pesto = DB::table('pestos')->find('$id');
-
-        if(!$pesto) {
+        
+        try {
+            $pesto = DB::table('pestos')->find($id);
+            
+            
+            $ingredients = DB::table('ingredients')->where('pesto_id', $id)->get();
+    
+            return view('pesto.view', compact('pesto', 'ingredients'));
+        } catch (ModelNotFoundException $e) {
             abort(404);
         }
-
-        $ingredients = DB::table('ingredients')->where('pestos.id', $id)->get();
-        return view('pesto.view', compact('pestos', 'ingredients'));
     }
 
     /**

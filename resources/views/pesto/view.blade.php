@@ -1,9 +1,8 @@
 @extends('layouts.main')
 
-@section('title', $pesto->name . ' Hozzávalók')
+@section('title', $pesto->name . ' hozzávalók')
 
 @section('content')
-    <h2>{{ $pesto->name }}</h2>
     <table class="table">
         <thead>
             <tr>
